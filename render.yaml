@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: reimbursement-claims
+    runtime: node
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && npm install --include=dev && npm run build
+    startCommand: cd backend && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
