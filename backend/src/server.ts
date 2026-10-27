@@ -111,8 +111,8 @@ app.post("/claims", requireUser, (req, res) => {
 
   const month = monthKey(expenseDate);
   const used = amountUsed(user.id, category, month);
-  const remaining = monthlyLimits[category] - used;
-  if (amount > remaining) return fail(res, 400, "MONTHLY_LIMIT_EXCEEDED", `Monthly ${category} limit is ₹${monthlyLimits[category]}. ₹${Math.max(0, remaining).toFixed(2)} remains for ${month}.`);
+  const remaining = monthlyLimits[category as Category] - used;
+  if (amount > remaining) return fail(res, 400, "MONTHLY_LIMIT_EXCEEDED", `Monthly ${category} limit is ₹${monthlyLimits[category as Category]}. ₹${Math.max(0, remaining).toFixed(2)} remains for ${month}.`);
 
   // Synchronous in-memory check-and-insert prevents interleaving within this Node process.
   const claim: Claim = {
